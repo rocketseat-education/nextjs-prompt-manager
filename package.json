@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "format": "prettier --write",
+    "typecheck": "tsc --noEmit --skipLiCheck",
     "lint": "eslint"
   },
   "dependencies": {
@@ -22,6 +24,10 @@
     "dotenv": "^17.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "lefthook": "^2.0.13",
+    "prettier": "^3.7.4",
     "prisma": "6",
     "tailwindcss": "^4",
     "typescript": "^5"
