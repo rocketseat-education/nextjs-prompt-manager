@@ -12,7 +12,13 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { CopyButton } from '../button-actions';
 import { Button } from '../ui/button';
-import { Form, FormControl, FormField, FormItem } from '../ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '../ui/form';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 
@@ -67,6 +73,7 @@ export const PromptForm = () => {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -84,6 +91,7 @@ export const PromptForm = () => {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
