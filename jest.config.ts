@@ -14,6 +14,7 @@ const config = createJestConfig({
     '/e2e/',
     '/src/components/ui/',
     '/src/lib/',
+    '/src/generated/',
   ],
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',

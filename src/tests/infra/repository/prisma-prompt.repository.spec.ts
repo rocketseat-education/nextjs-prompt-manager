@@ -118,5 +118,27 @@ describe('PrismaPromptRepository', () => {
       });
       expect(results).toMatchObject(input);
     });
+
+    it('deve aceitar termo undefined e não enviar o where', async () => {
+      const now = new Date();
+      const input = [
+        {
+          id: '1',
+          title: 'Title 01',
+          content: 'Content 01',
+          createdAt: now,
+          updatedAt: now,
+        },
+      ];
+      prisma.prompt.findMany.mockResolvedValue(input);
+
+      const results = await repository.searchMany(undefined);
+
+      expect(prisma.prompt.findMany).toHaveBeenCalledWith({
+        where: undefined,
+        orderBy: { createdAt: 'desc' },
+      });
+      expect(results).toMatchObject(input);
+    });
   });
 });
