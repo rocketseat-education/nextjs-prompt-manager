@@ -93,6 +93,9 @@ importers:
       '@types/react-dom':
         specifier: ^19
         version: 19.2.3(@types/react@19.2.8)
+      baseline-browser-mapping:
+        specifier: ^2.9.14
+        version: 2.9.14
       dotenv:
         specifier: ^17.2.3
         version: 17.2.3
