@@ -32,8 +32,6 @@ test('Edição de prompt via UI (sucesso)', async ({ page }) => {
     timeout: 15000,
   });
 
-  await expect(
-    page.getByRole('heading', { name: updatedContent })
-  ).toBeVisible();
+  await expect(page.getByRole('heading', { name: updatedTitle })).toBeVisible();
   await expect(page.locator('input[name="title"]')).toHaveValue(updatedTitle);
 });
