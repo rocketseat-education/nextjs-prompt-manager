@@ -8,6 +8,7 @@ import {
   CreatePromptDTO,
   createPromptSchema,
 } from '@/core/application/prompts/create-prompt.dto';
+import { Prompt } from '@/core/domain/prompts/prompt.entity';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { CopyButton } from '../button-actions';
@@ -22,7 +23,11 @@ import {
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 
-export const PromptForm = () => {
+type PromptFormProps = {
+  prompt?: Prompt | null;
+};
+
+export const PromptForm = ({ prompt }: PromptFormProps) => {
   const router = useRouter();
 
   const form = useForm<CreatePromptDTO>({
