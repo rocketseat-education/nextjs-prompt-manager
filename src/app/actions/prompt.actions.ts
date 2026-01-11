@@ -7,6 +7,7 @@ import {
   createPromptSchema,
 } from '@/core/application/prompts/create-prompt.dto';
 import { CreatePromptUseCase } from '@/core/application/prompts/create-prompt.use-case';
+import { DeletePromptUseCase } from '@/core/application/prompts/delete-prompt.use-case';
 import { SearchPromptsUseCase } from '@/core/application/prompts/search-prompts.use-case';
 import {
   UpdatePromptDTO,
