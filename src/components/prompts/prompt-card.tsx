@@ -1,5 +1,6 @@
 'use client';
 
+import { deletePromptAction } from '@/app/actions/prompt.actions';
 import { PromptSummary } from '@/core/domain/prompts/prompt.entity';
 import { Trash as DeleteIcon, Loader2 as LoadingIcon } from 'lucide-react';
 import Link from 'next/link';
@@ -26,9 +27,21 @@ export const PromptCard = ({ prompt }: PromptCardProps) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = async () => {
-    // setIsDeleting(true);
+    setIsDeleting(true);
 
-    toast.success('Prompt removido com sucesso!');
+    try {
+      const result = await deletePromptAction(prompt.id);
+      if (!result.success) {
+        toast.error(result.message);
+      }
+
+      toast.success(result.message);
+    } catch (error) {
+      const _error = error as Error;
+      toast.error(_error.message);
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   return (
