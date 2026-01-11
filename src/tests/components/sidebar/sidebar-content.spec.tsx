@@ -2,7 +2,7 @@ import {
   SidebarContent,
   SidebarContentProps,
 } from '@/components/sidebar/sidebar-content';
-import { render, screen } from '@/lib/test-utils';
+import { render, screen, waitFor } from '@/lib/test-utils';
 import userEvent from '@testing-library/user-event';
 
 const pushMock = jest.fn();
@@ -107,7 +107,6 @@ describe('SidebarContent', () => {
 
     it('deveria contrair e mostrar o botão de expandir', async () => {
       makeSut();
-
       const collapseButton = screen.getByRole('button', {
         name: /minimizar sidebar/i,
       });
@@ -118,7 +117,6 @@ describe('SidebarContent', () => {
         name: /expandir sidebar/i,
       });
       expect(expandButton).toBeInTheDocument();
-
       expect(collapseButton).not.toBeInTheDocument();
     });
 
@@ -152,9 +150,8 @@ describe('SidebarContent', () => {
   });
 
   describe('Novo Prompt', () => {
-    it('deveria navegar o usuario para a paga de novo prompt /new', async () => {
+    it('deveria navegar o usuário para a paga de novo prompt /new', async () => {
       makeSut();
-
       const newButton = screen.getByRole('button', { name: 'Novo prompt' });
 
       await user.click(newButton);
@@ -206,14 +203,15 @@ describe('SidebarContent', () => {
       expect(submitSpy).toHaveBeenCalled();
       submitSpy.mockRestore();
     });
-    it('deveria iniciar o campo de busca com o search param', () => {
-      const text = 'inicial';
-      const searchParams = new URLSearchParams(`q=${text}`);
-      mockSearchParams = searchParams;
-      makeSut();
-      const searchInput = screen.getByPlaceholderText('Buscar prompts...');
+  });
 
-      expect(searchInput).toHaveValue(text);
-    });
+  it('deveria iniciar o campo de busca com o search param', async () => {
+    const text = 'inicial';
+    const searchParams = new URLSearchParams(`q=${text}`);
+    mockSearchParams = searchParams;
+    makeSut();
+    const searchInput = screen.getByPlaceholderText('Buscar prompts...');
+
+    await waitFor(() => expect(searchInput).toHaveValue(text));
   });
 });
