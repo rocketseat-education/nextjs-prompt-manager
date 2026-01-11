@@ -1,0 +1,57 @@
+name: CI (Integração Contínua)
+on: [pull_request]
+
+jobs:
+  build:
+    name: Validar Código e Gerar Build
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
+
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Instalar pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Instalar Dependências
+        run: pnpm install --frozen-lockfile
+
+      - name: Gerar Cliente do Prisma
+        run: pnpm db:generate
+
+      - name: Verificar Estilo (Lint)
+        run: pnpm lint
+
+      - name: Checagem de Tipagem (Typecheck)
+        run: pnpm typecheck
+
+      - name: Rodar Testes de Unidade
+        run: pnpm test:coverage
+
+      - name: Gerar Build Final
+        run: pnpm build
