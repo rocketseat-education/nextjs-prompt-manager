@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 
 import { createPromptAction } from '@/app/actions/prompt.actions';
 import {
@@ -26,7 +26,10 @@ export const PromptForm = () => {
       content: '',
     },
   });
-  const content = form.watch('content');
+  const content = useWatch({
+    control: form.control,
+    name: 'content',
+  });
 
   const submit = async (data: CreatePromptDTO) => {
     const result = await createPromptAction(data);
