@@ -1,7 +1,7 @@
 import { PromptSummary } from '@/core/domain/prompts/prompt.entity';
 import Link from 'next/link';
 
-type PromptCardProps = {
+export type PromptCardProps = {
   prompt: PromptSummary;
 };
 
