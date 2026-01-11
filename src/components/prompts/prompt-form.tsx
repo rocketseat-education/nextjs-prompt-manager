@@ -10,6 +10,7 @@ import {
 } from '@/core/application/prompts/create-prompt.dto';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { CopyButton } from '../button-actions';
 import { Button } from '../ui/button';
 import { Form, FormControl, FormField, FormItem } from '../ui/form';
 import { Input } from '../ui/input';
@@ -25,6 +26,7 @@ export const PromptForm = () => {
       content: '',
     },
   });
+  const content = form.watch('content');
 
   const submit = async (data: CreatePromptDTO) => {
     const result = await createPromptAction(data);
@@ -42,6 +44,7 @@ export const PromptForm = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(submit)} className="space-y-6">
         <header className="flex flex-wrap gap-2 items-center mb-6 justify-end">
+          <CopyButton content={content} />
           <Button type="submit" size="sm">
             Salvar
           </Button>
